@@ -1,2 +1,2 @@
-# Error Discovery Service Api
+# Error Discovery Service
 
