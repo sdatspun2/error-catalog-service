@@ -1,0 +1,7 @@
+{
+  "type": "string",
+  "description": "The BCP-47 language tag. Composed of: The ISO-639 alpha-2 language code. (Optional) The ISO-15924 script tag. The ISO-3166 alpha-2 country code.",
+  "maxLength": 10,
+  "minLength": 2,
+  "pattern": "^[a-z]{2}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}))?$"
+}

@@ -1,0 +1,524 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Error Discovery Service",
+    "version": "1.0",
+    "description": "API for Error Discovery Service\n\nExample use cases:\n\n1. Microservices providing APIs can retrieve error metadata from Error Discovery Service instead of hard-coding.\n2. API Portal can show catalog of errors associated with APIs using the Error Discovery Service.\n3. Automation tests for API can verify errors sent by services against the API contract using Error Discovery Service.",
+    "contact": {
+      "name": "Sanjay Dalal",
+      "email": "sanjay.dalal@cal.berkeley.edu",
+      "url": "https://github.com/sdatspun2"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags":[
+   { "name": "get-error-catalogs"},
+   { "name": "post-error-catalog"},
+   { "name": "get-error-catalog"},
+   { "name": "put-error-catalog"},
+   { "name": "patch-error-catalog"},
+   { "name": "delete-error-catalog"},
+   { "name": "get-error-metadatas"},
+   { "name": "post-error-metadata"},
+   { "name": "get-error-metadata"},
+   { "name": "put-error-metadata"},
+   { "name": "patch-error-metadata"},
+   { "name": "delete-error-metadata"}
+  ],
+  "paths": {
+    "/error-catalogs": {
+      "get": {
+        "summary": "Get error catalogs",
+        "tags": ["get-error-catalogs"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "maximum number of results to return at one time"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "the offset of the results"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "total_required",
+            "description": "indicates total number of items (total_items) and pages (total_pages) are expected to be returned in the response"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "namespace",
+            "description": "namespace for error"
+          },
+          {
+            "schema": {
+              "$ref": "./models/language.json"
+            },
+            "in": "query",
+            "name": "language of error catalog",
+            "description": "language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/catalog_list"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-errors",
+        "description": "Get error catalogs"
+      },
+      "post": {
+        "summary": "Create an error catalog",
+         "tags": ["post-error-catalog"],
+        "operationId": "post-error-catalog",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/catalog"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create an error catalog in given namespace"
+      }
+    },
+    "/error-catalogs/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Error catalog id"
+        }
+      ],
+      "get": {
+        "summary": "Get error catalog",
+        "tags": ["get-error-catalog"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/catalog"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-error-catalogs-id",
+        "description": "Get identified error catalog"
+      },
+      "put": {
+        "summary": "Update error catalog",
+         "tags": ["put-error-catalog"],
+        "operationId": "put-error-catalog",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/catalog"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "description": "Completely update the identified error catalog"
+      },
+      "patch": {
+        "summary": "Partially update error catalog",
+         "tags": ["patch-error-catalog"],
+        "operationId": "patch-error-catalogs",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/catalog"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "description": "Partially update the identified error catalog",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./models/patch_request.json"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete error catalog",
+         "tags": ["delete-error-catalog"],
+        "operationId": "delete-error-catalog",
+        "responses": {
+          "204": {
+            "description": "Successful deletion"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete the identified error catalog (and all associated error metadata)"
+      }
+    },
+    "/error-catalogs/{id}/error-metadata": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "description": "Error metadata id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get error metadata",
+        "tags": ["get-error-metadatas"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "maximum number of results to return at one time"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "the offset of the results"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "total_required",
+            "description": "indicates total number of items (total_items) and pages (total_pages) are expected to be returned in the response"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "http_status_code",
+            "description": "HTTP status code associated with error metadata"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "api",
+            "description": "api where the error is used"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_metadata_list"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-error-catalogs-id-error-catalog-items",
+        "description": "Get all error metadata for identified catalog"
+      },
+      "post": {
+        "summary": "Create error metadata",
+        "tags": ["post-error-metadata"],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_metadata"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-error-caalogs-id-error-catalog-items",
+        "description": "Create error metadata in identified catalog"
+      }
+    },
+    "/error-catalogs/{id}/error-metadata/{mid}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Error catalog id"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "mid",
+          "in": "path",
+          "required": true,
+          "description": "Error metadata id"
+        }
+      ],
+      "put": {
+        "summary": "Complete update of error metadata",
+        "tags": ["put-error-metadata"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_metadata"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "put-error-caalogs-id-error-catalog-items",
+        "description": "Completely updates the identified error metadata in the error catalog"
+      },
+      "patch": {
+        "summary": "Partial update of error metadata",
+"tags": ["patch-error-metadata"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_metadata"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "patch-error-caalogs-id-error-catalog-items",
+        "description": "Partially updates the identified error metadata in the error catalog",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./models/patch_request.json"
+              }
+            }
+          },
+          "description": ""
+        }
+      },
+      "delete": {
+        "summary": "Delete error metadata",
+"tags": ["delete-error-metadata"],
+        "responses": {
+          "204": {
+            "description": "Successful deletion"
+          }
+        },
+        "operationId": "delete-error-caalogs-id-error-catalog-items",
+        "description": "Deletes the identified error metadata from the error catalog"
+      },
+      "get": {
+        "summary": "Get error metadata",
+         "tags": ["get-error-metadata"],
+        "operationId": "get-error-catalogs-id-error-metadata-mid",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error_metadata.json"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/error.json"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get the identified error metadata from the error catalog"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "catalog": {
+        "$ref": "./models/error_catalog.json"
+      },
+      "catalog_list": {
+        "$ref": "./models/error_catalog_list.json"
+      },
+      "error_metadata": {
+        "$ref": "./models/error_metadata.json"
+      },
+      "error_metadata_list": {
+        "$ref": "./models/error_metadata_list.json"
+      }
+    },
+    "securitySchemes": {
+      "API Key - 1": {
+        "type": "oauth2"
+      }
+    }
+  }
+}

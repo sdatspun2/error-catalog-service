@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "title": "Error",
+  "description": "Error conveys one or more error conditions in response/message",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human readable, unique name of the error. It is recommended that this value is not hardcoded but instead injected in error response from relevant entry in the error catalog."
+    },
+    "id": {
+      "type": "string",
+      "description": "A unique reference for the error instance for correlation purposes. "
+    },
+    "message": {
+      "type": "string",
+      "description": "Message describing the error. It is recommended that this value is not hardcoded but instead injected in error response from relevant entry in the error catalog. Error catalog could use templatized string."
+    },
+    "errors": {
+      "type": "array",
+      "description": "Additional details for error instances. Mandatory for client side 4xx errors.",
+      "additionalItems": false,
+      "items": {
+        "$ref": "error_instance.json"
+      }
+    },
+    "links": {
+      "type": "array",
+      "description": "Links providing more information related to errors. These links could point to FAQ or support pages providing help in order to resolve error situation.",
+      "items": {
+        "$ref": "link_description.json"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "id",
+    "message"
+  ]
+}

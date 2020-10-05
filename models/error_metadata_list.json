@@ -1,0 +1,28 @@
+{
+  "title": "Error metadata list",
+  "type": "object",
+  "description": "Error metadata list schema",
+  "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "./error_metadata.json"
+            }
+          },
+          "links": {
+            "type": "array",
+            "description": "pagination related links",
+            "items": {
+              "$ref": "./link_description.json"
+            }
+          },
+          "total_pages": {
+            "type": "integer",
+            "description": "pages available"
+          },
+          "total_items": {
+            "type": "integer",
+            "description": "total number of items in the full result list"
+          }
+        }
+ }
