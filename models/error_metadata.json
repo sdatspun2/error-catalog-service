@@ -1,11 +1,19 @@
 {
 	"type": "object",
 	"title": "Error Metadata",
-	"description": "Metadata for an error. Can be associated with one or more methods that belong to one or more APIs of the same namespace.",
+	"description": "Metadata for an error. Can be associated with one or more operations that belong to one or more APIs of the same namespace.",
 	"properties": {
 		"id": {
 			"type": "string",
-			"description": "Human-readable, unique identifier of the error. You can use error code or error name as identifier."
+			"description": "Human-readable, unique identifier of the error. You can use error code or error name as an identifier."
+		},
+		"namespace": {
+			"type": "string",
+			"description": "API namespace for this error."
+		},
+		"language": {
+			"description": "Language used to localize strings, such as message and suggested actions.",
+			"$ref": "./language.json"
 		},
 		"message": {
 			"type": "string",
@@ -29,14 +37,6 @@
 				"maximum": 599
 			}
 		},
-		"apis": {
-			"type": "array",
-			"description": "APIs using this error.",
-			"items": {
-				"type": "string",
-				"description": "Unique identifier for an api using this error."
-			}
-		},
 		"actions": {
 			"type": "array",
 			"description": "Suggest actions that the developer of application consuming the API could take in order to resolve the error condition.",
@@ -54,6 +54,8 @@
 	},
 	"required": [
 		"id",
+		"namespace",
+		"language",
 		"message"
 	]
 }

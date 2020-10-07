@@ -8,7 +8,7 @@
 			"description": "API namespace for the error catalog. The catalog is scoped to this namespace."
 		},
 		"language": {
-			"description": "Language used to localize error-related strings, such as message, issue, and suggested actions.",
+			"description": "Language used to localize error-related strings, such as message and suggested actions.",
 			"$ref": "./language.json"
 
 		},

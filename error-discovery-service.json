@@ -33,6 +33,7 @@
    { "name": "patch-error-metadata"},
    { "name": "delete-error-metadata"}
   ],
+  "x-error-namespaces":["generic", "errors"], 
   "paths": {
     "/error-catalogs": {
       "get": {
@@ -103,12 +104,14 @@
           }
         },
         "operationId": "get-errors",
-        "description": "Get error catalogs"
+        "description": "Get error catalogs",
+        "x-error-ids": ["language_invalid", "namespace_invalid", "resource_not_found"]
       },
       "post": {
         "summary": "Create an error catalog",
-         "tags": ["post-error-catalog"],
+        "tags": ["post-error-catalog"],
         "operationId": "post-error-catalog",
+        "x-error-ids": ["language_invalid", "namespace_invalid"],
         "responses": {
           "201": {
             "description": "OK",
@@ -172,12 +175,14 @@
           }
         },
         "operationId": "get-error-catalogs-id",
+        "x-error-ids": ["resource_not_found"],
         "description": "Get identified error catalog"
       },
       "put": {
         "summary": "Update error catalog",
-         "tags": ["put-error-catalog"],
+        "tags": ["put-error-catalog"],
         "operationId": "put-error-catalog",
+        "x-error-ids": ["resource_not_found", "language_invalid", "namespace_invalid"],
         "responses": {
           "200": {
             "description": "OK",
@@ -204,8 +209,9 @@
       },
       "patch": {
         "summary": "Partially update error catalog",
-         "tags": ["patch-error-catalog"],
+        "tags": ["patch-error-catalog"],
         "operationId": "patch-error-catalogs",
+        "x-error-ids": ["resource_not_found", "language_invalid", "namespace_invalid"],
         "responses": {
           "200": {
             "description": "OK",
@@ -241,8 +247,9 @@
       },
       "delete": {
         "summary": "Delete error catalog",
-         "tags": ["delete-error-catalog"],
+        "tags": ["delete-error-catalog"],
         "operationId": "delete-error-catalog",
+        "x-error-ids": ["resource_not_found"],
         "responses": {
           "204": {
             "description": "Successful deletion"
@@ -314,8 +321,16 @@
               "type": "string"
             },
             "in": "query",
-            "name": "api",
-            "description": "api where the error is used"
+            "name": "namespace",
+            "description": "namespace where the error is used"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "language",
+            "description": "laguage for error metadata"
           }
         ],
         "responses": {
@@ -341,6 +356,7 @@
           }
         },
         "operationId": "get-error-catalogs-id-error-catalog-items",
+        "x-error-ids": ["parameter_invalid", "language_invalid", "namespace_invalid"],
         "description": "Get all error metadata for identified catalog"
       },
       "post": {
@@ -369,6 +385,7 @@
           }
         },
         "operationId": "post-error-caalogs-id-error-catalog-items",
+        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid"],
         "description": "Create error metadata in identified catalog"
       }
     },
@@ -419,6 +436,7 @@
           }
         },
         "operationId": "put-error-caalogs-id-error-catalog-items",
+        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid", "resource_not_found"],
         "description": "Completely updates the identified error metadata in the error catalog"
       },
       "patch": {
@@ -447,6 +465,7 @@
           }
         },
         "operationId": "patch-error-caalogs-id-error-catalog-items",
+        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid", "resource_not_found"],
         "description": "Partially updates the identified error metadata in the error catalog",
         "requestBody": {
           "content": {
@@ -472,8 +491,9 @@
       },
       "get": {
         "summary": "Get error metadata",
-         "tags": ["get-error-metadata"],
+        "tags": ["get-error-metadata"],
         "operationId": "get-error-catalogs-id-error-metadata-mid",
+        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid", "resource_not_found"],
         "responses": {
           "200": {
             "description": "OK",
