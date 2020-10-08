@@ -29,6 +29,7 @@ If error related strings such as message, description, actions to take, etc. are
 
 
 #### Domain
+
 According to Wikipedia, a domain model is a system of abstractions that describes selected aspects of a sphere of knowledge, influence, or activity. The concepts include the data involved in a business, and the rules that the business uses in relation to that data. As an example, a fintech domain model includes domains such as Payment, Risk, Compliance, Identity, Customer Support, etc.
 
 #### Resource
@@ -36,6 +37,7 @@ According to Wikipedia, a domain model is a system of abstractions that describe
 The key abstraction of information in REST is a resource. A [resource](https://github.com/paypal/api-standards/blob/master/api-style-guide.md#resource) is a conceptual mapping to a set of entities, not the entity that corresponds to the mapping at any particular point in time. More precisely, a resource R is a temporally varying membership function MR(t), that for time t maps to a set of entities, or values, that are equivalent. The values in the set may be resource representations and/or resource identifiers.
 
 #### Microservice 
+
 Microservices (aka Service) provides a generic Application Programming Interface (API) for accessing and manipulating the value set of a resource, regardless of how the membership function is defined or the type of software that is handling the request.
 
 #### Namespace
@@ -47,26 +49,32 @@ Capabilities drive service modeling and namespace concerns in an API portfolio. 
 
 
 1. Microservices providing APIs can retrieve error metadata from the Error Discovery Service instead of hard-coding in the code.
-2. API Portal can show a list of errors associated with an API using the Error Discovery Service.
-3. Automation tests for an API can verify errors sent by services against the API contract using Error Discovery Service.
+2. API Portal can show a list of errors and error details associated with an API using using the API definition and [the Error Discovery Service.
+3. Automation tests for an API can verify errors emitted by services using the API definition and the Error Discovery Service.
 
-## Resources of Error Discovery Service
+
+## API
+
+API definition for Error Discovery Service is defined using OpenAPI Document which is available [here](error_discovery_service.json). 
+
+### Resources of Error Discovery Service
 
 There are two resources in Error Discovery Service.
 
 1. Error Metadata
 2. Error Catalog
 
-### Error Metadata
+#### Error Metadata
 
 Error Metadata describes an error. An Error Metadata can be associated with one or more operations that belong to one or more APIs. Metadata includes an identifier for the error, a message (if required, a templatized string), HTTP status code(s) that would be used to inform about this error and it describes possible action(s) to take in order to rectify the error.
 
-### Error Catalog
+#### Error Catalog
+
 An Error Catalog has a namespace, language and a collection of error metadata for the namespace. There SHOULD be an Error Catalog for a default language (e.g. `en_US`). There chould be one or more language-specific catalog as needed.
 
 ## Custom Extensions for OpenAPI Specification
 
-OpenAPI Specification allows [extensions](https://swagger.io/specification/#specification-extensions). For Error Discovery Service, we have identified two extensions. Using an [OpenAPI Document](https://swagger.io/specification/#definitions) that is annotated with these 2 extensions, various tool/components/systems including but not limited to API portal, microservice exposing the API, CI/CD utilities and QA tests can retrieve error metadata from one or more error catalog(s) with the help of Error Discovery Service. 
+[OpenAPI](https://swagger.io/specification/) Specification allows [extensions](https://swagger.io/specification/#specification-extensions). For Error Discovery Service, we have identified two extensions. Using an [OpenAPI Document](https://swagger.io/specification/#definitions) that is annotated with these 2 extensions, various tool/components/systems including but not limited to API portal, microservice exposing the API, CI/CD utilities and QA tests can retrieve error metadata from one or more error catalog(s) with the help of Error Discovery Service. 
 
 1. `x-error-namespaces`
 2. `x-error-ids`
@@ -83,7 +91,6 @@ The following example indicates that errors emitted by one or more operation(s) 
 "x-error-namespaces":["generic", "issuance"]
 ```
 
-
 ### `x-error-ids`
 
 This extension lists an array of error metadata related to the errors emitted by operations that are annotated using this extension. 
@@ -96,9 +103,8 @@ The following example indicates that errors emitted by an operation(s) annotated
 "x-error-ids": ["resource_not_found", "card_type_invalid", "brand_invalid", "last4_invalid", "expiry_invalid"]
 ```
 
-## API
+The API definition for Error Discovery Service is annotated with `x-error-namespaces` and `x-error-ids` extensions.
 
-API definition for Error Discovery Service in the form of an OpenAPI Document is available [here](error_discovery_service.json). The API definition for Error Discovery Service is also annotated with `x-error-namespaces` and `x-error-ids` extensions.
 
 ## Credit
-1. [Error Catalog PayPal Design Guidelines](https://github.com/paypal/api-standards/blob/master/api-style-guide.md#error-catalog)
+1. [Error Catalog - PayPal Design Guidelines](https://github.com/paypal/api-standards/blob/master/api-style-guide.md#error-catalog)
