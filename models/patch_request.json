@@ -2,7 +2,6 @@
   "type": "array",
   "title": "JSON patch request",
   "description": "Request object used for a JSON patch.",
-  "additionalItems": false,
   "items": {
     "$ref": "patch.json"
   }

@@ -18,7 +18,6 @@
     "errors": {
       "type": "array",
       "description": "Additional details for error instances. Mandatory for client side 4xx errors.",
-      "additionalItems": false,
       "items": {
         "$ref": "error_instance.json"
       }
