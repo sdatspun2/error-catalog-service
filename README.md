@@ -107,8 +107,16 @@ The following example indicates that errors emitted by an operation(s) annotated
 "x-error-ids": ["resource_not_found", "card_type_invalid", "brand_invalid", "last4_invalid", "expiry_invalid"]
 ```
 
-The API definition for Error Discovery Service is annotated with `x-error-namespaces` and `x-error-ids` extensions.
+## Example API definition
 
+The [API definition](error-discovery-service.json) for Error Discovery Service is annotated with `x-error-namespaces` and `x-error-ids` extensions.
+
+## Community
+
+
+* Contribute via issues and pull requests.
+* Contributors: people and organizations who helped us get started or are actively working on the definition of Error Discovery Service API, various extensions and implementation of the service in various languages.
+* Demos & open source -- if you have something to share about your use of Error Discovery Service, please submit a PR!
 
 ## Credit
 1. [Error Catalog - PayPal Design Guidelines](https://github.com/paypal/api-standards/blob/master/api-style-guide.md#error-catalog)
