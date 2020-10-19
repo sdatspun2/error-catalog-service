@@ -330,7 +330,7 @@
             },
             "in": "query",
             "name": "language",
-            "description": "laguage for error metadata"
+            "description": "language for error metadata"
           }
         ],
         "responses": {
