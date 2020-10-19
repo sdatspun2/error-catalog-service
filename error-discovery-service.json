@@ -33,7 +33,7 @@
    { "name": "patch-error-metadata"},
    { "name": "delete-error-metadata"}
   ],
-  "x-error-namespaces":["generic", "errors"], 
+  "x-error-namespaces":["generic", "errors"],
   "paths": {
     "/error-catalogs": {
       "get": {
@@ -50,7 +50,7 @@
           },
           {
             "schema": {
-              "type": "boolean"
+              "type": "integer"
             },
             "in": "query",
             "name": "offset",
@@ -294,7 +294,7 @@
           },
           {
             "schema": {
-              "type": "boolean"
+              "type": "integer"
             },
             "in": "query",
             "name": "offset",
