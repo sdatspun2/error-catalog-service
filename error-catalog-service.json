@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Error Discovery Service",
+    "title": "Error Catalog Service API",
     "version": "1.0",
-    "description": "API for Error Discovery Service\n\nExample use cases:\n\n1. Microservices providing APIs can retrieve error metadata from Error Discovery Service instead of hard-coding.\n2. API Portal can show catalog of errors associated with APIs using the Error Discovery Service.\n3. Automation tests for API can verify errors sent by services against the API contract using Error Discovery Service.",
+    "description": "API for Error Catalog Service\n\nExample use cases:\n\n1. Microservices exposing APIs can retrieve error types from Error Catalog Service instead of hard-coding.\n2. Developer portal can show errors associated with APIs using the Error Catalog Service.\n3. Linters and automation tests for API can verify errors sent by services against the API contract using Error Catalog Service.",
     "contact": {
       "name": "Sanjay Dalal",
       "email": "sanjay.dalal@cal.berkeley.edu",
@@ -19,26 +19,51 @@
       "url": "http://localhost:3000"
     }
   ],
-  "tags":[
-   { "name": "get-error-catalogs"},
-   { "name": "post-error-catalog"},
-   { "name": "get-error-catalog"},
-   { "name": "put-error-catalog"},
-   { "name": "patch-error-catalog"},
-   { "name": "delete-error-catalog"},
-   { "name": "get-error-metadatas"},
-   { "name": "post-error-metadata"},
-   { "name": "get-error-metadata"},
-   { "name": "put-error-metadata"},
-   { "name": "patch-error-metadata"},
-   { "name": "delete-error-metadata"}
+  "tags": [
+    {
+      "name": "get-error-catalogs"
+    },
+    {
+      "name": "post-error-catalog"
+    },
+    {
+      "name": "get-error-catalog"
+    },
+    {
+      "name": "put-error-catalog"
+    },
+    {
+      "name": "patch-error-catalog"
+    },
+    {
+      "name": "delete-error-catalog"
+    },
+    {
+      "name": "get-error-types"
+    },
+    {
+      "name": "post-error-type"
+    },
+    {
+      "name": "get-error-type"
+    },
+    {
+      "name": "put-error-type"
+    },
+    {
+      "name": "patch-error-type"
+    },
+    {
+      "name": "delete-error-type"
+    }
   ],
-  "x-error-namespaces":["generic", "errors"],
   "paths": {
-    "/error-catalogs": {
+    "/v1/error/error-catalogs": {
       "get": {
         "summary": "Get error catalogs",
-        "tags": ["get-error-catalogs"],
+        "tags": [
+          "get-error-catalogs"
+        ],
         "parameters": [
           {
             "schema": {
@@ -105,13 +130,22 @@
         },
         "operationId": "get-errors",
         "description": "Get error catalogs",
-        "x-error-ids": ["language_invalid", "namespace_invalid", "resource_not_found"]
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/resource_not_found"
+        ]
       },
       "post": {
         "summary": "Create an error catalog",
-        "tags": ["post-error-catalog"],
+        "tags": [
+          "post-error-catalog"
+        ],
         "operationId": "post-error-catalog",
-        "x-error-ids": ["language_invalid", "namespace_invalid"],
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid"
+        ],
         "responses": {
           "201": {
             "description": "OK",
@@ -135,9 +169,10 @@
           }
         },
         "description": "Create an error catalog in given namespace"
-      }
+      },
+      "parameters": []
     },
-    "/error-catalogs/{id}": {
+    "/v1/error/error-catalogs/{id}": {
       "parameters": [
         {
           "schema": {
@@ -151,7 +186,9 @@
       ],
       "get": {
         "summary": "Get error catalog",
-        "tags": ["get-error-catalog"],
+        "tags": [
+          "get-error-catalog"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -175,14 +212,22 @@
           }
         },
         "operationId": "get-error-catalogs-id",
-        "x-error-ids": ["resource_not_found"],
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/resource_not_found"
+        ],
         "description": "Get identified error catalog"
       },
       "put": {
         "summary": "Update error catalog",
-        "tags": ["put-error-catalog"],
+        "tags": [
+          "put-error-catalog"
+        ],
         "operationId": "put-error-catalog",
-        "x-error-ids": ["resource_not_found", "language_invalid", "namespace_invalid"],
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/resource_not_found",
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -209,9 +254,15 @@
       },
       "patch": {
         "summary": "Partially update error catalog",
-        "tags": ["patch-error-catalog"],
+        "tags": [
+          "patch-error-catalog"
+        ],
         "operationId": "patch-error-catalogs",
-        "x-error-ids": ["resource_not_found", "language_invalid", "namespace_invalid"],
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/resource_not_found",
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -247,9 +298,13 @@
       },
       "delete": {
         "summary": "Delete error catalog",
-        "tags": ["delete-error-catalog"],
+        "tags": [
+          "delete-error-catalog"
+        ],
         "operationId": "delete-error-catalog",
-        "x-error-ids": ["resource_not_found"],
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/resource_not_found"
+        ],
         "responses": {
           "204": {
             "description": "Successful deletion"
@@ -265,24 +320,26 @@
             }
           }
         },
-        "description": "Delete the identified error catalog (and all associated error metadata)"
+        "description": "Delete the identified error catalog (and all associated error type)"
       }
     },
-    "/error-catalogs/{id}/error-metadata": {
+    "/v1/error/error-catalogs/{id}/error-types": {
       "parameters": [
         {
           "schema": {
             "type": "string"
           },
           "name": "id",
-          "description": "Error metadata id",
+          "description": "Error catalog id",
           "in": "path",
           "required": true
         }
       ],
       "get": {
-        "summary": "Get error metadata",
-        "tags": ["get-error-metadatas"],
+        "summary": "Get error type",
+        "tags": [
+          "get-error-types"
+        ],
         "parameters": [
           {
             "schema": {
@@ -314,7 +371,7 @@
             },
             "in": "query",
             "name": "http_status_code",
-            "description": "HTTP status code associated with error metadata"
+            "description": "HTTP status code associated with error type"
           },
           {
             "schema": {
@@ -330,7 +387,7 @@
             },
             "in": "query",
             "name": "language",
-            "description": "laguage for error metadata"
+            "description": "laguage for error type"
           }
         ],
         "responses": {
@@ -339,7 +396,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/error_metadata_list"
+                  "$ref": "#/components/schemas/error_type_list"
                 }
               }
             }
@@ -356,19 +413,25 @@
           }
         },
         "operationId": "get-error-catalogs-id-error-catalog-items",
-        "x-error-ids": ["parameter_invalid", "language_invalid", "namespace_invalid"],
-        "description": "Get all error metadata for identified catalog"
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/parameter_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid"
+        ],
+        "description": "Get all error type for identified catalog"
       },
       "post": {
-        "summary": "Create error metadata",
-        "tags": ["post-error-metadata"],
+        "summary": "Create error type",
+        "tags": [
+          "post-error-type"
+        ],
         "responses": {
           "201": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/error_metadata"
+                  "$ref": "#/components/schemas/error_type"
                 }
               }
             }
@@ -385,11 +448,16 @@
           }
         },
         "operationId": "post-error-caalogs-id-error-catalog-items",
-        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid"],
-        "description": "Create error metadata in identified catalog"
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/message_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/http_status_code_invalid"
+        ],
+        "description": "Create error type in identified catalog"
       }
     },
-    "/error-catalogs/{id}/error-metadata/{mid}": {
+    "/v1/error/error-catalogs/{id}/error-types/{eid}": {
       "parameters": [
         {
           "schema": {
@@ -404,22 +472,24 @@
           "schema": {
             "type": "string"
           },
-          "name": "mid",
+          "name": "eid",
           "in": "path",
           "required": true,
-          "description": "Error metadata id"
+          "description": "Error type id"
         }
       ],
       "put": {
-        "summary": "Complete update of error metadata",
-        "tags": ["put-error-metadata"],
+        "summary": "Complete update of error type",
+        "tags": [
+          "put-error-type"
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/error_metadata"
+                  "$ref": "#/components/schemas/error_type"
                 }
               }
             }
@@ -436,19 +506,27 @@
           }
         },
         "operationId": "put-error-caalogs-id-error-catalog-items",
-        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid", "resource_not_found"],
-        "description": "Completely updates the identified error metadata in the error catalog"
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/message_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/http_status_code_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/resource_not_found"
+        ],
+        "description": "Completely updates the identified error type in the error catalog"
       },
       "patch": {
-        "summary": "Partial update of error metadata",
-"tags": ["patch-error-metadata"],
+        "summary": "Partial update of error type",
+        "tags": [
+          "patch-error-type"
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/error_metadata"
+                  "$ref": "#/components/schemas/error_type"
                 }
               }
             }
@@ -465,8 +543,14 @@
           }
         },
         "operationId": "patch-error-caalogs-id-error-catalog-items",
-        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid", "resource_not_found"],
-        "description": "Partially updates the identified error metadata in the error catalog",
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/message_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/http_status_code_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/resource_not_found"
+        ],
+        "description": "Partially updates the identified error type in the error catalog",
         "requestBody": {
           "content": {
             "application/json": {
@@ -479,28 +563,38 @@
         }
       },
       "delete": {
-        "summary": "Delete error metadata",
-"tags": ["delete-error-metadata"],
+        "summary": "Delete error type",
+        "tags": [
+          "delete-error-type"
+        ],
         "responses": {
           "204": {
             "description": "Successful deletion"
           }
         },
         "operationId": "delete-error-caalogs-id-error-catalog-items",
-        "description": "Deletes the identified error metadata from the error catalog"
+        "description": "Deletes the identified error type from the error catalog"
       },
       "get": {
-        "summary": "Get error metadata",
-        "tags": ["get-error-metadata"],
-        "operationId": "get-error-catalogs-id-error-metadata-mid",
-        "x-error-ids": ["language_invalid", "namespace_invalid", "message_invalid", "http_status_code_invalid", "resource_not_found"],
+        "summary": "Get error type",
+        "tags": [
+          "get-error-type"
+        ],
+        "operationId": "get-error-catalogs-id-error-type-eid",
+        "x-error-types": [
+          "/v1/error/error-catalogs/{ecid}/error-types/language_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/namespace_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/message_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/http_status_code_invalid",
+          "/v1/error/error-catalogs/{ecid}/error-types/esource_not_found"
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./models/error_metadata.json"
+                  "$ref": "./models/error_type.json"
                 }
               }
             }
@@ -516,7 +610,7 @@
             }
           }
         },
-        "description": "Get the identified error metadata from the error catalog"
+        "description": "Get the identified error type from the error catalog"
       }
     }
   },
@@ -528,11 +622,11 @@
       "catalog_list": {
         "$ref": "./models/error_catalog_list.json"
       },
-      "error_metadata": {
-        "$ref": "./models/error_metadata.json"
+      "error_type": {
+        "$ref": "./models/error_type.json"
       },
-      "error_metadata_list": {
-        "$ref": "./models/error_metadata_list.json"
+      "error_type_list": {
+        "$ref": "./models/error_type_list.json"
       }
     },
     "securitySchemes": {

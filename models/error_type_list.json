@@ -1,13 +1,13 @@
 {
-  "title": "Error catalog list",
+  "title": "Error Type list",
   "type": "object",
-  "description": "Error catalog list schema",
+  "description": "Error Type list schema",
   "properties": {
-    "catalogs": {
+    "errors": {
       "type": "array",
-      "description": "List of error catalogs",
+      "description": "List of Error Types",
       "items": {
-        "$ref": "./error_catalog.json"
+        "$ref": "./error_type.json"
       }
     },
     "links": {
@@ -19,7 +19,7 @@
     },
     "total_pages": {
       "type": "integer",
-      "description": "Pages available in the result list"
+      "description": "Pages of result list available"
     },
     "total_items": {
       "type": "integer",

@@ -1,21 +1,26 @@
 {
   "type": "object",
   "title": "Error",
-  "description": "Error conveys one or more error conditions in response/message",
+  "description": "Error schema used to convey one or more problems found in given HTTP request or in service processing the request. This error schema is derived from Problem Details Object of RFC 7807.",
   "properties": {
-    "name": {
+    "type": {
       "type": "string",
-      "description": "Human readable, unique name of the error. It is recommended that this value is not hardcoded but instead injected in error response from relevant entry in the error catalog."
+      "format": "uri",
+      "description": "A URI reference [RFC3986] that identifies the problem type. When dereferenced, it provides human-readable documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]). When this member is not present, its value is assumed to be 'about:blank'"
+    },
+    "title": {
+      "type": "string",
+      "description": "A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation.)"
+    },
+    "detail": {
+      "type": "string",
+      "description": "A human-readable explanation specific to this occurrence of the problem."
     },
     "id": {
       "type": "string",
       "description": "A unique reference for the error instance for correlation purposes. "
     },
-    "message": {
-      "type": "string",
-      "description": "Message describing the error. It is recommended that this value is not hardcoded but instead injected in error response from relevant entry in the error catalog. Error catalog could use templatized string."
-    },
-    "errors": {
+    "instances": {
       "type": "array",
       "description": "Additional details for error instances. Mandatory for client side 4xx errors.",
       "items": {
@@ -26,13 +31,15 @@
       "type": "array",
       "description": "Links providing more information related to errors. These links could point to FAQ or support pages providing help in order to resolve error situation.",
       "items": {
-        "$ref": "link_description.json"
+        "type": "string",
+        "format": "uri"
       }
     }
   },
   "required": [
-    "name",
-    "id",
-    "message"
+    "type",
+    "title",
+    "detail",
+    "id"
   ]
 }

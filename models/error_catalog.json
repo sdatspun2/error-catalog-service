@@ -5,24 +5,34 @@
 	"properties": {
 		"namespace": {
 			"type": "string",
-			"description": "API namespace for the error catalog. The catalog is scoped to this namespace."
+			"description": "Namespace for the error catalog. The catalog is scoped to this namespace."
 		},
 		"language": {
 			"description": "Language used to localize error-related strings, such as message and suggested actions.",
 			"$ref": "./language.json"
-
 		},
-		"errors": {
+		"error_types": {
 			"type": "array",
-			"description": "Catalog of errors.",
+			"description": "Catalog of error types.",
 			"items": {
-				"$ref": "./error_metadata.json"
+				"$ref": "./error_type.json"
 			}
+		},
+		"created_at": {
+			"type": "string",
+			"format": "date-time",
+			"description": "Timestamp when this error catalog was created."
+		},
+		"updated_at": {
+			"type": "string",
+			"format": "date-time",
+			"description": "Timestamp when this error catalog was updated."
 		}
 	},
 	"required": [
 		"namespace",
 		"language",
-		"errors"
+		"error_types",
+		"created_at"
 	]
 }

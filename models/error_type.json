@@ -1,0 +1,76 @@
+{
+	"type": "object",
+	"title": "Error Type",
+	"description": "Type for an error. Can be associated with one or more operations that belong to one or more APIs of the same namespace. Relates to Problem Type of RFC 7807.",
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "Human-readable, unique identifier of the error type. Use error code or error name as an identifier. For example 'namespace_invalid',  '20002'"
+		},
+		"namespace": {
+			"type": "string",
+			"description": "Namespace for the error type. When this member is not present, its value is assumed to be 'default'.",
+			"default": "default"
+		},
+		"language": {
+			"description": "Language used to localize values of 'detail', 'actions', etc.",
+			"$ref": "./language.json"
+		},
+		"title": {
+			"type": "string",
+			"description": "A short, human-readable summary of the error type. It SHOULD NOT change from occurrence to occurrence of the error."
+		},
+		"detail": {
+			"type": "string",
+			"description": "A human-readable explanation specific an occurrence of the error. Should be a template string. Should be localized."
+		},
+		"log_level": {
+			"type": "string",
+			"description": "Log level associated with this error. This MUST NOT be sent in error responses. It MUST NOT be exposed in any public documentation.",
+			"enum": [
+				"ERROR",
+				"WARN"
+			]
+		},
+		"http_status_codes": {
+			"type": "array",
+			"description": "Applicable HTTP status codes for this error.",
+			"items": {
+				"type": "integer",
+				"minItems": 1,
+				"minimum": 400,
+				"maximum": 599
+			}
+		},
+		"actions": {
+			"type": "array",
+			"description": "Suggestive actions that the API consumer could take in order to resolve the error condition.",
+			"items": {
+				"type": "string"
+			}
+		},
+		"links": {
+			"type": "array",
+			"description": "Links specific to the error type.",
+			"items": {
+				"$ref": "./link_description.json"
+			}
+		},
+		"created_at": {
+			"type": "string",
+			"format": "date-time",
+			"description": "Timestamp when this error type was created."
+		},
+		"updated_at": {
+			"type": "string",
+			"format": "date-time",
+			"description": "Timestamp when this error type was updated."
+		}
+	},
+	"required": [
+		"id",
+		"title",
+		"detail",
+		"created_at"
+	]
+}

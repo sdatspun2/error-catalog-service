@@ -1,15 +1,15 @@
 {
 	"type": "object",
 	"title": "Error Instance",
-	"description": "Error instance.",
+	"description": "Instance of an error. Derived from JSON Schema spec, section 10",
 	"properties": {
 		"keyword_location": {
 			"type": "string",
-			"description": "Location of keyword entity involved in error. If the keyword is in the body, set this value to the JSON pointer to the property. Required for client-side errors."
+			"description": "Location of keyword entity involved in error. If the keyword is in the body, this will be JSON pointer to the property."
 		},
 		"instance_location": {
 			"type": "string",
-			"description": "The location of the error instance if qualification is needed beyond the keyword location. Could be used to provide index of entry in array."
+			"description": "The location of the error instance if qualification is needed beyond the keyword_location. Could be used to provide index of entry in array."
 		},
 		"instance_value": {
 			"type": "string",
@@ -17,19 +17,20 @@
 		},
 		"in": {
 			"type": "string",
-			"description": "The location of the type of object that is in error. A valid value is `body`, `header`, `path`, or `query`. Default is `body`."
+			"description": "The location of the type of entity that is in error. Valid values are `body`, `header`, `path`, or `query`. Default is `body`."
 		},
-		"message": {
+		"detail": {
 			"type": "string",
-			"description": "Error message for entity in error. It is recommended that this value is not hardcoded but instead injected from relevant entry in the error catalog. Error catalog could use templatized string."
+			"description": "Error message for entity in error. It is recommended that this value is not hardcoded but instead injected from relevant entry in the error catalog. Error catalog could use a template string."
 		},
-		"link": {
-			"description": "Link providing more information related to this error instance.",
-			"$ref": "link_description.json"
+		"instance": {
+			"type": "string",
+			"format": "uri",
+			"description": "A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced."
 		}
 	},
 	"required": [
 		"in",
-		"message"
+		"detail"
 	]
 }
