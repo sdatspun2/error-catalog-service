@@ -387,7 +387,7 @@
             },
             "in": "query",
             "name": "language",
-            "description": "laguage for error type"
+            "description": "language for error type"
           }
         ],
         "responses": {
