@@ -110,9 +110,7 @@ Content-Language: en
 
 ### Example API definition
 
-The [API definition](error-catalog-service.json) for the Error Catalog Service itself is annotated with `x-error-types` extension.
-
-**Note**: Since this is just an API (no implementation), The API definition uses a fictitious variable called `{ecid}` for identifying the error catalogs.
+The [API definition](error-catalog-service.json) for the Error Catalog Service itself is annotated with `x-error-types` extension. **Note** The API definition uses a fictitious variable called `{ecid}` in `x-error-types` that should be replaced with real error catalog id.
 
 ## Community
 
