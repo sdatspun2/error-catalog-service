@@ -55,8 +55,8 @@ An API's [definition](http://spec.openapis.org/oas/v3.0.3#openapi-document) (aka
 
 For each operation in an API definition, one can define possible HTTP status codes and the response body schema. However, the OpenAPI specification does not provide any component schema element(s) (fields, objects) to list and describe error types that operations of a service may emit in error responses. Therefore,
 
-1. Documentation generation tools cannot list and describe the error types with API documentation based on just the API definition. 
-2. [Contract-based testing](https://martinfowler.com/bliki/ContractTest.html) for the API cannot cover error scenarios comprehensively since the API definition lacks the error types. 
+1. Documentation generation tools cannot list and describe the error types with API documentation based on just the API definition.
+2. [Contract-based testing](https://martinfowler.com/bliki/ContractTest.html) for the API cannot cover error scenarios comprehensively since the API definition lacks the error types.
 3. API client can not handle error scenarios and write a robust client-side code unless the API developer has put together an extensive error related documentation with the API definition(s).
 
 ### Using Problem Details for HTTP APIs
@@ -162,11 +162,7 @@ Error Catalog Service uses `error` as an API namespace as can be seen from `path
 
 ### Error response
 
-The [error.json](./models/error.json) and [error_instance.json](./models/error_instance.json) are the schemas used for error responses in Error Catalog Service API.
-
-These schemas are derived from [Problem Details JSON Object](https://tools.ietf.org/html/rfc7807#section-3) as described in RFC 7807. We have added a few extensions such as `id`, `instances` and `links`. We have used an array of `instances` instead of an `instance` since `400` `Bad Request` types of errors may require to report more than one instances in error responses. Schema for error_instance.json is also derived from standard validation output format as defined in [section 10](https://json-schema.org/draft/2019-09/json-schema-core.html#rfc.section.10) of JSON Schema specification.
-
-In case, you have a more appropriate way to carry an error in a format that your API already defines, feel free to use that format instead of [error.json](./models/error.json).
+[Error Response in Error Catalog API](./ErrorResponseInErrorCatalog.md) describes the schemas used for error responses in the Error Catalog Service API. In case, you have a more appropriate way to carry an error in a format that your API already defines, feel free to use that format instead of [error.json](./models/error.json).
 
 
 ### Annotated with OpenAPI Extension
@@ -186,7 +182,8 @@ The [API definition](error-catalog-service.json) for the Error Catalog Service i
 2. [JSON Schema: A Media Type for Describing JSON Documents](https://tools.ietf.org/html/draft-handrews-json-schema-02)
 3. [OpenAPI Specification](http://spec.openapis.org/oas/v3.0.3)
 4. [Problem Details for HTTP APIs, RFC 7807](https://tools.ietf.org/html/rfc7807)
-5. [OpenAPI Extension for Error Type](./OpenAPIExtensionForErrorType.md)
-6. [Microsoft Azure Cluster Errors](https://docs.microsoft.com/en-us/azure/hdinsight/create-cluster-error-dictionary)
-7. [Twilio Error and Warning Dictionary](https://www.twilio.com/docs/api/errors)
-8. [API Style Book, Error Format](http://apistylebook.com/design/topics/http-status-standard-error)
+5. [Error Response in Error Catalog API](./ErrorResponseInErrorCatalog.md)
+6. [OpenAPI Extension for Error Type](./OpenAPIExtensionForErrorType.md)
+7. [Microsoft Azure Cluster Errors](https://docs.microsoft.com/en-us/azure/hdinsight/create-cluster-error-dictionary)
+8. [Twilio Error and Warning Dictionary](https://www.twilio.com/docs/api/errors)
+9. [API Style Book, Error Format](http://apistylebook.com/design/topics/http-status-standard-error)

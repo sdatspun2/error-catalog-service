@@ -17,7 +17,8 @@
 		},
 		"in": {
 			"type": "string",
-			"description": "The location of the type of entity that is in error. Valid values are `body`, `header`, `path`, or `query`. Default is `body`."
+			"default": "body",
+			"description": "The location of the type of entity that is in error. Valid values are `body`, `path` or `query`. Default is `body`."
 		},
 		"detail": {
 			"type": "string",
