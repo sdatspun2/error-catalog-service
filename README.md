@@ -14,7 +14,11 @@ This API is licensed under [The Apache License, Version 2.0](https://www.apache.
 
 #### Resource
 
-The key abstraction of information in REST is a resource. A [resource](https://github.com/paypal/api-standards/blob/master/api-style-guide.md#resource) is a conceptual mapping to a set of entities, not the entity that corresponds to the mapping at any particular point in time. More precisely, a resource R is a temporally varying membership function MR(t), that for time t maps to a set of entities, or values, that are equivalent. The values in the set may be resource representations and/or resource identifiers.
+The key abstraction of information in Representational State Transfer ([REST](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)) is a [resource](https://tools.ietf.org/html/rfc7231#section-2). A resource is a conceptual mapping to a set of entities, not the entity that corresponds to the mapping at any particular point in time. The target of an HTTP request is called a "resource".
+
+#### Representation
+
+REST components perform actions on a resource by using a [representation](https://roy.gbiv.com/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_2) to capture the current or intended state of that resource and transferring that representation between components. A representation is a sequence of bytes, plus representation metadata to describe those bytes.
 
 #### Service
 
@@ -178,12 +182,15 @@ The [API definition](error-catalog-service.json) for the Error Catalog Service i
 
 ## References
 
-1. [Error Catalog - PayPal Design Guidelines](https://github.com/paypal/api-standards/blob/master/api-style-guide.md#error-catalog)
-2. [JSON Schema: A Media Type for Describing JSON Documents](https://tools.ietf.org/html/draft-handrews-json-schema-02)
-3. [OpenAPI Specification](http://spec.openapis.org/oas/v3.0.3)
-4. [Problem Details for HTTP APIs, RFC 7807](https://tools.ietf.org/html/rfc7807)
-5. [Error Response in Error Catalog API](./ErrorResponseInErrorCatalog.md)
-6. [OpenAPI Extension for Error Type](./OpenAPIExtensionForErrorType.md)
-7. [Microsoft Azure Cluster Errors](https://docs.microsoft.com/en-us/azure/hdinsight/create-cluster-error-dictionary)
-8. [Twilio Error and Warning Dictionary](https://www.twilio.com/docs/api/errors)
-9. [API Style Book, Error Format](http://apistylebook.com/design/topics/http-status-standard-error)
+1. [Architectural Styles and
+the Design of Network-based Software Architectures](https://roy.gbiv.com/pubs/dissertation/top.htm), Fielding, R.
+2. [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content](https://tools.ietf.org/html/rfc7231) 
+2. [Error Catalog - PayPal Design Guidelines](https://github.com/paypal/api-standards/blob/master/api-style-guide.md#error-catalog)
+3. [JSON Schema: A Media Type for Describing JSON Documents](https://tools.ietf.org/html/draft-handrews-json-schema-02)
+4. [OpenAPI Specification](http://spec.openapis.org/oas/v3.0.3)
+5. [Problem Details for HTTP APIs, RFC 7807](https://tools.ietf.org/html/rfc7807)
+6. [Error Response in Error Catalog API](./ErrorResponseInErrorCatalog.md)
+7. [OpenAPI Extension for Error Type](./OpenAPIExtensionForErrorType.md)
+8. [Microsoft Azure Cluster Errors](https://docs.microsoft.com/en-us/azure/hdinsight/create-cluster-error-dictionary)
+9. [Twilio Error and Warning Dictionary](https://www.twilio.com/docs/api/errors)
+10. [API Style Book, Error Format](http://apistylebook.com/design/topics/http-status-standard-error)
